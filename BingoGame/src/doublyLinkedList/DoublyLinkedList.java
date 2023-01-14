@@ -31,7 +31,7 @@ public class DoublyLinkedList {
 		Node temp = last;
 		int count = 0;
 		
-		while (count < 5) {
+		while (count < 5) { //shows the last 5 numbers selected
 			if (temp == null) {
 				break;
 			}
@@ -40,11 +40,6 @@ public class DoublyLinkedList {
 			count++;
 		}
 		
-		
-//		while (temp != null) { 
-//			System.out.println(temp.getNumber());
-//			temp = temp.getPrev();
-//		}
 		System.out.println("**************");
 	}
 
