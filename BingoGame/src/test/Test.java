@@ -17,31 +17,37 @@ public class Test {
 		Card card2 = new Card(number2);
 		
 		
-		int size1 = card1.getSize();  
+		int size1 = card1.getSize();  //sizes of cards
 		int size2 = card2.getSize();
 		
-		int[] numbers = new int[89];  //this is an array that keeps numbers selected
+		int[] numbers = new int[90];  //this is an array that keeps numbers selected randomly
 		Random rand = new Random();
 		
-		for (int i = 0; i < numbers.length; i++) { //this loop is for inserting node to the linked list
-			do {
-				numbers[i] = rand.nextInt(90 - 1 + 1) + 1;
-				SelectedNumber selectedNumber = new SelectedNumber(numbers[i]);
-				list.insertAtBack(selectedNumber);
-				for (int j = 0; j < 12; j++) { //this loop is for determine the card numbers are equal to the random numbers or not
-					if (numbers[i] == number1[j]) { //if the random number is equal to the number that is in the card numbers array; decrease the size 
-						size1 = size1 - 1;
-						if (size1 == 0)  //if the size is equal 0; Bingo
-							System.out.println("card1 Bingo!");
-					}
-					if (numbers[i] == number2[j]) { 
-						size2 = size2 - 1;
-						if (size2 == 0) 
-							System.out.println("card2 Bingo!");
-					}
-					
+		for (int i = 0; i < numbers.length; i++) { //for creating 'numbers' array without duplicate values
+			numbers[i] = rand.nextInt(90 - 1 + 1) + 1;
+			for (int j = 0; j < i; j++) {
+				if (numbers[i] == numbers[j]) { //if there is a duplicate value decrease the 'i' by 1 and try to find another value 
+					i--; 
+					break;
 				}
-			} while (numbers.equals(numbers[i]));  //this avoids from the adding duplicate numbers to array
+			}
+		}
+		
+		for (int i = 0; i < numbers.length; i++) { //for inserting and displaying elements
+			SelectedNumber sNumber = new SelectedNumber(numbers[i]);
+			list.insertAtBack(sNumber);
+			for (int j = 0; j < 12; j++) {
+				if (numbers[i] == number1[j]) { 
+					size1--;
+					if (size1 == 0) 
+						System.out.println("card1 Bingo!");
+				}
+				if (numbers[i] == number2[j]) {
+					size2--;
+					if (size2 == 0) 
+						System.out.println("card2 Bingo!");
+				}
+			}
 			list.outputListBackward();
 		}
 	}
